@@ -14,7 +14,24 @@ class TransactionList extends StatelessWidget {
     // ignore: sized_box_for_whitespace
     return Container(
       height: 300,
-      child: ListView.builder(
+      child: transactions.isEmpty ? Column(
+        children: <Widget>[
+          const SizedBox(height: 20),
+          Text(
+            'Nenhuma despesa cadastrada',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 20),
+          // ignore: sized_box_for_whitespace
+          Container(
+            height: 200,
+            child: Image.asset(
+              'assets/images/waiting.png',
+              fit: BoxFit.cover,
+            ),
+          )
+        ],
+      ) : ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (ctx, index) {
           final tr = transactions[index];
@@ -48,10 +65,11 @@ class TransactionList extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       tr.title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge,
+                      // style: const TextStyle(
+                      //   fontWeight: FontWeight.bold,
+                      //   fontSize: 16,
+                      // ),
                     ),
                     Text(
                       DateFormat('d MMM y').format(tr.date),
